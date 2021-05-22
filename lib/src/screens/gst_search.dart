@@ -32,42 +32,59 @@ class _GstSearchState extends State<GstSearch> {
               decoration: BoxDecoration(
                   color: kMainColor,
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10))),
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20))),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    'Select the type for',
-                    style: kSecondaryTextStyle,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text('GST Number Search Tool', style: kPrimaryTextStyle),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  FlutterToggleTab(
-                    isScroll: true,
-                    marginSelected: EdgeInsets.all(3),
-                    selectedBackgroundColors: [Colors.white],
-                    unSelectedBackgroundColors: [Color(0xFF26884a)],
-                    borderRadius: 25,
-                    initialIndex: gstNumber,
-                    selectedTextStyle: TextStyle(
-                        color: kMainColor, fontWeight: FontWeight.w600),
-                    unSelectedTextStyle: TextStyle(
+                  IconButton(
+                      alignment: Alignment.topRight,
+                      padding: EdgeInsets.all(30),
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.more_vert,
                         color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400),
-                    labels: labels,
-                    selectedLabelIndex: (index) {
-                      setState(() {
-                        gstNumber = index;
-                      });
-                    },
+                      )),
+                  Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Select the type for',
+                        style: kSecondaryTextStyle,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text('GST Number Search Tool', style: kPrimaryTextStyle),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      FlutterToggleTab(
+                        isScroll: true,
+                        marginSelected: EdgeInsets.all(3),
+                        selectedBackgroundColors: [Colors.white],
+                        unSelectedBackgroundColors: [Color(0xFF26884a)],
+                        borderRadius: 25,
+                        initialIndex: gstNumber,
+                        selectedTextStyle: TextStyle(
+                            color: kMainColor, fontWeight: FontWeight.w600),
+                        unSelectedTextStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                        labels: labels,
+                        selectedLabelIndex: (index) {
+                          setState(() {
+                            gstNumber = index;
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
                   ),
                 ],
               ),
