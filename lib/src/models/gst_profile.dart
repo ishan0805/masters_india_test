@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class GstProfile {
+  String gstin;
   final String name;
   final String status;
   final String address;
@@ -8,6 +9,7 @@ class GstProfile {
   final String businessType;
   final String dataRagistration;
   GstProfile({
+    this.gstin,
     this.name,
     this.status,
     this.address,
@@ -53,6 +55,7 @@ class GstProfile {
     if (identical(this, other)) return true;
 
     return other is GstProfile &&
+        other.gstin == gstin &&
         other.name == name &&
         other.status == status &&
         other.address == address &&
@@ -63,7 +66,8 @@ class GstProfile {
 
   @override
   int get hashCode {
-    return name.hashCode ^
+    return gstin.hashCode ^
+        name.hashCode ^
         status.hashCode ^
         address.hashCode ^
         taxpayerType.hashCode ^

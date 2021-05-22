@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
+import 'package:masters_india_test/src/resources/gst/gst_repository.dart';
+import 'package:masters_india_test/src/screens/profile_view.dart';
 
-import '../constants.dart';
+import '../utils/constants.dart';
 
 class GstSearch extends StatefulWidget {
   GstSearch({Key key}) : super(key: key);
@@ -12,7 +14,10 @@ class GstSearch extends StatefulWidget {
 
 class _GstSearchState extends State<GstSearch> {
   int gstNumber = 0;
-
+  final _formKey = GlobalKey<FormState>();
+  var gstRepository = GstRepository();
+  String gstin;
+  List<String> labels = ["Search Gst Number", "GST Return Status"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +49,8 @@ class _GstSearchState extends State<GstSearch> {
                     height: 20,
                   ),
                   FlutterToggleTab(
-                    isScroll: false,
-                    marginSelected: EdgeInsets.all(2),
+                    isScroll: true,
+                    marginSelected: EdgeInsets.all(3),
                     selectedBackgroundColors: [Colors.white],
                     unSelectedBackgroundColors: [Color(0xFF26884a)],
                     borderRadius: 25,
@@ -56,7 +61,7 @@ class _GstSearchState extends State<GstSearch> {
                         color: Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w400),
-                    labels: ["Search Gst Number", "GST Return Status"],
+                    labels: labels,
                     selectedLabelIndex: (index) {
                       setState(() {
                         gstNumber = index;
@@ -86,14 +91,26 @@ class _GstSearchState extends State<GstSearch> {
                           height: 5,
                         ),
                         Flexible(
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: "Ex: 07AACCW10C1ZP",
-                              fillColor: Color(0xFFf2f2f2),
-                              filled: true,
-                              border: InputBorder.none,
-                              //helperText: "Ex: 07AACCW10C1ZP",
-                              //labelText: "Enter GST Number",
+                          child: Form(
+                            key: _formKey,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                hintText: "Ex: 07AACCW10C1ZP",
+                                fillColor: Color(0xFFf2f2f2),
+                                filled: true,
+                                border: InputBorder.none,
+                                //helperText: "Ex: 07AACCW10C1ZP",
+                                //labelText: "Enter GST Number",
+                              ),
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return "Enter a valid GSTIN";
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                gstin = value;
+                              },
                             ),
                           ),
                         ),
@@ -106,8 +123,35 @@ class _GstSearchState extends State<GstSearch> {
                             width: double.infinity,
                             child: ElevatedButton(
                               child: Text("Search"),
-                              onPressed: () {
-                                // Api call
+                              onPressed: () async {
+                                if (_formKey.currentState.validate() == true) {
+                                  _formKey.currentState.save();
+                                  bool ok = true;
+                                  var profile =
+                                      await gstRepository.getGstProfile(gstin);
+                                  /* .catchError((onError) {
+                                        
+                                    _formKey.currentState.reset();
+                                    _formKey.currentState.validate();
+                                    ok = false;
+                                  });*/
+
+                                  if (ok) {
+                                    profile.gstin = gstin;
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return GstProfileView(
+                                            gst_profile: profile,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+                                } else {
+                                  print("isha");
+                                }
                               },
                             ),
                           ),

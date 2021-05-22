@@ -6,3 +6,7 @@ final kPrimaryTextStyle =
 final kSecondaryTextStyle = TextStyle(
   color: Colors.white,
 );
+final kSubTextStyle =
+    TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold);
+final kTitleTextStyle =
+    TextStyle(fontSize: 11, color: Colors.grey, fontWeight: FontWeight.bold);
