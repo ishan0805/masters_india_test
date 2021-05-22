@@ -21,6 +21,7 @@ class _GstSearchState extends State<GstSearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           Flexible(
@@ -127,14 +128,13 @@ class _GstSearchState extends State<GstSearch> {
                                 if (_formKey.currentState.validate() == true) {
                                   _formKey.currentState.save();
                                   bool ok = true;
-                                  var profile =
-                                      await gstRepository.getGstProfile(gstin);
-                                  /* .catchError((onError) {
-                                        
+                                  var profile = await gstRepository
+                                      .getGstProfile(gstin)
+                                      .catchError((onError) {
                                     _formKey.currentState.reset();
                                     _formKey.currentState.validate();
                                     ok = false;
-                                  });*/
+                                  });
 
                                   if (ok) {
                                     profile.gstin = gstin;
@@ -152,6 +152,8 @@ class _GstSearchState extends State<GstSearch> {
                                 } else {
                                   print("isha");
                                 }
+
+                                FocusScope.of(context).unfocus();
                               },
                             ),
                           ),

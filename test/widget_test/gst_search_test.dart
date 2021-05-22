@@ -7,7 +7,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'dart:ui' as ui show Paint, Path, Canvas;
 import 'package:masters_india_test/src/screens/gst_search.dart';
 
 Widget GstSearchScreen() => MaterialApp(home: GstSearch());
@@ -21,9 +20,9 @@ void main() {
       // Verify that GstSearch Screen is launching
       expect(find.byType(Scaffold), findsOneWidget);
     });
-    testWidgets("Testing overflow of events page in a mobile screen",
+    testWidgets("Testing overflow of GstSearch page  in a mobile screen",
         (tester) async {
-      tester.binding.window.physicalSizeTestValue = const Size(480, 800);
+      tester.binding.window.physicalSizeTestValue = const Size(500, 800);
       tester.binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(GstSearchScreen());
@@ -32,7 +31,7 @@ void main() {
       expect(find.byType(Scaffold), findsOneWidget);
     });
 
-    testWidgets("Testing overflow of events Page in a tablet screen",
+    testWidgets("Testing overflow of GstSearch page in a tablet screen",
         (tester) async {
       tester.binding.window.physicalSizeTestValue = const Size(1024, 768);
       tester.binding.window.devicePixelRatioTestValue = 1.0;

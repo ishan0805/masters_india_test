@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:masters_india_test/src/models/gst_profile.dart';
 import 'package:masters_india_test/src/utils/constants.dart';
+import 'package:masters_india_test/src/utils/size_config.dart';
 
 class GstProfileView extends StatelessWidget {
   final GstProfile gst_profile;
 
   GstProfileView({this.gst_profile});
+  var size = SizeConfig();
 
   @override
   Widget build(BuildContext context) {
+    size.init(context);
+    print(SizeConfig.screenWidth - 30);
     return Scaffold(
       body: Column(
         children: [
+          //for banner
           Flexible(
             flex: 3,
             child: Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(15),
               width: double.infinity,
               decoration: BoxDecoration(
                   color: kMainColor,
@@ -53,46 +58,56 @@ class GstProfileView extends StatelessWidget {
                   ),
                   Text(gst_profile.gstin, style: kPrimaryTextStyle),
                   SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   Text("Master India Private Limited",
                       style: kPrimaryTextStyle),
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    height: 25,
-                    width: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width: 5,
-                          height: 5,
-                          decoration: BoxDecoration(
-                              color: kMainColor, shape: BoxShape.circle),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                        height: 25,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              width: 5,
+                              height: 5,
+                              decoration: BoxDecoration(
+                                  color: kMainColor, shape: BoxShape.circle),
+                            ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Text(
+                              gst_profile.status,
+                              style: TextStyle(color: kMainColor),
+                            ),
+                          ],
                         ),
-                        Text(
-                          gst_profile.status,
-                          style: TextStyle(color: kMainColor),
-                        ),
-                      ],
-                    ),
+                      ),
+                      Spacer()
+                    ],
                   )
                 ],
               ),
             ),
           ),
+          // for middle information display
           Flexible(
             flex: 6,
             child: Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // address of the user
                     Card(
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -153,22 +168,34 @@ class GstProfileView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        CustomCard(
-                          title: "State Juridiction",
-                          subtitle: " Ward 74",
+                    // taxplayer typr
+
+                    Container(
+                      width: SizeConfig.screenWidth - 30,
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomCard(
+                              title: "State Juridiction",
+                              subtitle: "Ward 74",
+                            ),
+                            CustomCard(
+                              title: "Center Juridiction",
+                              subtitle: "Ranger 74",
+                            ),
+                            CustomCard(
+                              title: "TaxPayer Type",
+                              subtitle: gst_profile.taxpayerType,
+                            ),
+                          ],
                         ),
-                        CustomCard(
-                          title: "Center Juridiction",
-                          subtitle: "Ranger 74",
-                        ),
-                        CustomCard(
-                          title: "TaxPayer Type",
-                          subtitle: gst_profile.taxpayerType,
-                        ),
-                      ],
+                      ),
                     ),
+
+                    //bussiness type
                     Container(
                       width: double.infinity,
                       child: CustomCard(
@@ -176,6 +203,7 @@ class GstProfileView extends StatelessWidget {
                         subtitle: gst_profile.businessType,
                       ),
                     ),
+                    // dates to display
                     Card(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -219,6 +247,7 @@ class GstProfileView extends StatelessWidget {
                   ],
                 )),
           ),
+          // for button
           Container(
             padding: EdgeInsets.fromLTRB(4, 0, 4, 2),
             width: double.infinity,
@@ -250,17 +279,11 @@ class CustomCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: kTitleTextStyle,
-            ),
+            Text(title, style: kTitleTextStyle, overflow: TextOverflow.fade),
             SizedBox(
               height: 10,
             ),
-            Text(
-              subtitle,
-              style: kSubTextStyle,
-            ),
+            Text(subtitle, style: kSubTextStyle, overflow: TextOverflow.fade),
           ],
         ),
       ),
