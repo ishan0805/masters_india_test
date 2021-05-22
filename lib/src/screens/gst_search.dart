@@ -82,7 +82,7 @@ class _GstSearchState extends State<GstSearch> {
                         },
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 7,
                       ),
                     ],
                   ),
