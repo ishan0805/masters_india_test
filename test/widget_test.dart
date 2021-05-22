@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'dart:ui' as ui show Paint, Path, Canvas;
 import 'package:masters_india_test/src/screens/gst_search.dart';
 
 Widget GstSearchScreen() => MaterialApp(home: GstSearch());
