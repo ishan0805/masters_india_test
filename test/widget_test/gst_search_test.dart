@@ -63,9 +63,9 @@ void main() {
       await tester.pump();
       final Finder formWidgetFinder = find.byType(Form);
       final Form formWidget = tester.widget(formWidgetFinder) as Form;
-      final GlobalKey<FormState> formKey =
+      final GlobalKey<FormState> formKey=
           formWidget.key as GlobalKey<FormState>;
-      expect(formKey.currentState.validate(), isTrue);
+      expect(formKey.currentState.validate(),isTrue);
     });
   });
 }
