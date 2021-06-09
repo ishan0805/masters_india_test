@@ -45,6 +45,8 @@ jobs:
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: dart analyze
+      - name: Release apk
+        run: flutter build apk --release
 
       
      
